@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TI_Devops_2024_DemoAspMvc", "TI_Devops_2024_DemoAspMvc\TI_Devops_2024_DemoAspMvc.csproj", "{5EEB0CB2-4890-4630-B368-A2C550A9A22F}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TI_Devops_2024_DemoAspMvc.DB", "TI_Devops_2024_DemoAspMvc.DB\TI_Devops_2024_DemoAspMvc.DB.sqlproj", "{3E0C1B77-201D-4FB4-B971-31AEAA700A9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EEB0CB2-4890-4630-B368-A2C550A9A22F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EEB0CB2-4890-4630-B368-A2C550A9A22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EEB0CB2-4890-4630-B368-A2C550A9A22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EEB0CB2-4890-4630-B368-A2C550A9A22F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E0C1B77-201D-4FB4-B971-31AEAA700A9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E0C1B77-201D-4FB4-B971-31AEAA700A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E0C1B77-201D-4FB4-B971-31AEAA700A9C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3E0C1B77-201D-4FB4-B971-31AEAA700A9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E0C1B77-201D-4FB4-B971-31AEAA700A9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E0C1B77-201D-4FB4-B971-31AEAA700A9C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {325CDA9E-F350-4B4E-8E9A-CAE784CF63BC}
+	EndGlobalSection
+EndGlobal
