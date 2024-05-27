@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TI_Devops_2024_DemoAspMvc.DAL.Interfaces;
 using TI_Devops_2024_DemoAspMvc.Domain.Entities;
 
@@ -119,6 +114,30 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Repositories
             conn.Close();
 
             return b;
+        }
+
+        public bool ExistByUnicityCriteria(Book book)
+        {
+            using SqlConnection conn = new SqlConnection(_connectionString);
+            using SqlCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = $@"SELECT COUNT(*) 
+                                 FROM Book 
+                                 WHERE Title = @title AND 
+                                       Publish_date = @publishDate AND 
+                                       Author_Id = @authorId ";
+
+            cmd.Parameters.AddWithValue("@title", book.Title);
+            cmd.Parameters.AddWithValue("@publishDate", book.PublishDate);
+            cmd.Parameters.AddWithValue("@authorId", book.AuthorId);
+
+            conn.Open();
+
+            int count = (int)cmd.ExecuteScalar();
+
+            conn.Close();
+
+            return count > 0;
         }
     }
 }

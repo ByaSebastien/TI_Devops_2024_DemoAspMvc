@@ -10,5 +10,7 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Interfaces
     public interface IBookRepository : IBaseRepository<Book,string> 
     {
         Book? GetFullByISBN(string ISBN);
+
+        bool ExistByUnicityCriteria(Book book);
     }
 }
