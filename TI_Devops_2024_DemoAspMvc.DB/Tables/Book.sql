@@ -7,5 +7,8 @@
 	[Author_id] INT NOT NULL,
 	CONSTRAINT FK_Book_Author FOREIGN KEY (Author_id)
 		REFERENCES Author(Id),
-	CONSTRAINT UK_Book UNIQUE (Title,Publish_date,Author_id)
+	CONSTRAINT UK_Book UNIQUE (Title,Publish_date,Author_id),
+	CONSTRAINT CK_Book__ISBN CHECK (LEN(ISBN) = 11 OR LEN(ISBN) = 13),
+	CONSTRAINT CK_Book__Title CHECK (LEN(TRIM(Title)) >= 1),
+	CONSTRAINT CK_Book__Description CHECK (LEN(TRIM([Description])) >= 1)
 )
