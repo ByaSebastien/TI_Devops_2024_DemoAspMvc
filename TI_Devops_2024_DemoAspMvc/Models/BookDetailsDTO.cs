@@ -12,7 +12,7 @@ namespace TI_Devops_2024_DemoAspMvc.Models
         [DisplayName("Description")]
         public string? Description { get; set; }
         [DisplayName("Date de publication")]
-        public DateTime PublishDate { get; set; }
+        public string PublishDate { get; set; } = null!;
         [DisplayName("Auteur")]
         public Author Author { get; set; } = null!;
     }

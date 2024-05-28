@@ -45,7 +45,9 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
 
         public IActionResult Details(string isbn)
         {
-            BookDetailsDTO book = _bookService.GetFullByISBN(isbn);
+            BookDetailsDTO book = _bookService.GetFullByISBN(isbn).ToDetailsDTO();
+
+            return View(book);
         }
     }
 }

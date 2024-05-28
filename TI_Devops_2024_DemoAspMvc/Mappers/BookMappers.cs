@@ -35,7 +35,7 @@ namespace TI_Devops_2024_DemoAspMvc.Mappers
                 ISBN = b.ISBN,
                 Title = b.Title,
                 Description = b.Description,
-                PublishDate = b.PublishDate,
+                PublishDate = b.PublishDate.ToShortDateString(),
                 Author = b.Author!
             };
         }

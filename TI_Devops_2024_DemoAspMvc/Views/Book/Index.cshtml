@@ -10,6 +10,7 @@
         <tr>
             <th>Titre</th>
             <th>Date de publication</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +19,14 @@
             <tr>
                 <td>@b.Title</td>
                 <td>@b.PublishDate.ToShortDateString()</td>
+                <td>
+                    <a class="btn btn-primary" 
+                       asp-controller="Book" 
+                       asp-action="Details" 
+                       asp-route-isbn="@b.ISBN">
+                       Detail
+                   </a>
+                </td>
             </tr>
         }
     </tbody>
