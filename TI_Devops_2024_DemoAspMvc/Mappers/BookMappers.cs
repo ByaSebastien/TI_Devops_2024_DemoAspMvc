@@ -28,6 +28,18 @@ namespace TI_Devops_2024_DemoAspMvc.Mappers
             };
         }
 
+        public static BookFormDTO toFormDTO(this Book b)
+        {
+            return new BookFormDTO()
+            {
+                ISBN = b.ISBN,
+                Title = b.Title,
+                Description = b.Description,
+                PublishDate = b.PublishDate,
+                AuthorId = b.AuthorId
+            };
+        }
+
         public static BookDetailsDTO ToDetailsDTO(this Book b)
         {
             return new BookDetailsDTO()

@@ -7,7 +7,7 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Repositories
 {
     public class BookRepository : BaseRepository<Book, string>, IBookRepository
     {
-        public BookRepository() : base("Book", "ISBN")
+        public BookRepository(SqlConnection conn) : base(conn, "Book", "ISBN")
         {
         }
 
@@ -39,8 +39,7 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Repositories
 
         public override string Create(Book b)
         {
-            using SqlConnection conn = new SqlConnection(_connectionString);
-            using SqlCommand cmd = conn.CreateCommand();
+            using SqlCommand cmd = _conn.CreateCommand();
 
             cmd.CommandText = $@"INSERT INTO Book 
                                  OUTPUT INSERTED.ISBN
@@ -52,46 +51,46 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Repositories
             cmd.Parameters.AddWithValue("@publishDate", b.PublishDate);
             cmd.Parameters.AddWithValue(@"authorId", b.AuthorId);
 
-            conn.Open();
+            _conn.Open();
 
             string isbn = (string)cmd.ExecuteScalar();
 
-            conn.Close();
+            _conn.Close();
 
             return isbn;
         }
 
         public override bool Update(string isbn, Book b)
         {
-            using SqlConnection conn = new SqlConnection(_connectionString);
-            using SqlCommand cmd = conn.CreateCommand();
+            using SqlCommand cmd = _conn.CreateCommand();
 
             cmd.CommandText = $@"UPDATE Book 
-                                 SET Title = @title 
-                                     Description = @description 
-                                     Publish_date = @publishDate 
+                                 SET ISBN = @newIsbn,
+                                     Title = @title, 
+                                     Description = @description, 
+                                     Publish_date = @publishDate, 
                                      Author_id = @authorId 
                                  WHERE ISBN like @isbn";
 
+            cmd.Parameters.AddWithValue("@newIsbn", b.ISBN);
             cmd.Parameters.AddWithValue("@title", b.Title);
             cmd.Parameters.AddWithValue("@description", b.Description == null ? DBNull.Value : b.Description);
             cmd.Parameters.AddWithValue("@publishDate", b.PublishDate);
             cmd.Parameters.AddWithValue(@"authorId", b.AuthorId);
             cmd.Parameters.AddWithValue("@isbn", isbn);
 
-            conn.Open();
+            _conn.Open();
 
             int nbRows = cmd.ExecuteNonQuery();
 
-            conn.Close();
+            _conn.Close();
 
             return nbRows == 1;
         }
 
         public Book? GetFullByISBN(string ISBN)
         {
-            using SqlConnection conn = new SqlConnection(_connectionString);
-            using SqlCommand cmd = conn.CreateCommand();
+            using SqlCommand cmd = _conn.CreateCommand();
 
             cmd.CommandText = $@"SELECT *
                                  FROM Book b JOIN Author a 
@@ -100,7 +99,7 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Repositories
 
             cmd.Parameters.AddWithValue("@isbn", ISBN);
 
-            conn.Open();
+            _conn.Open();
 
             IDataReader r = cmd.ExecuteReader();
 
@@ -111,15 +110,14 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Repositories
                 b = ConvertFull(r);
             }
 
-            conn.Close();
+            _conn.Close();
 
             return b;
         }
 
         public bool ExistByUnicityCriteria(Book book)
         {
-            using SqlConnection conn = new SqlConnection(_connectionString);
-            using SqlCommand cmd = conn.CreateCommand();
+            using SqlCommand cmd = _conn.CreateCommand();
 
             cmd.CommandText = $@"SELECT COUNT(*) 
                                  FROM Book 
@@ -131,11 +129,55 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Repositories
             cmd.Parameters.AddWithValue("@publishDate", book.PublishDate);
             cmd.Parameters.AddWithValue("@authorId", book.AuthorId);
 
-            conn.Open();
+            _conn.Open();
 
             int count = (int)cmd.ExecuteScalar();
 
-            conn.Close();
+            _conn.Close();
+
+            return count > 0;
+        }
+
+        public bool ExistByISBN(string isbn)
+        {
+            using SqlCommand cmd = _conn.CreateCommand();
+
+            cmd.CommandText = $@"SELECT COUNT(*) 
+                                 FROM Book 
+                                 WHERE ISBN like @isbn";
+
+            cmd.Parameters.AddWithValue("@isbn", isbn);
+
+            _conn.Open();
+
+            int count = (int)cmd.ExecuteScalar();
+
+            _conn.Close();
+
+            return count > 0;
+        }
+
+        public bool ExistByUnicityCriteriaAndNotSameISBN(string isbn, Book book)
+        {
+            using SqlCommand cmd = _conn.CreateCommand();
+
+            cmd.CommandText = $@"SELECT COUNT(*) 
+                                 FROM Book 
+                                 WHERE Title = @title AND 
+                                       Publish_date = @publishDate AND 
+                                       Author_Id = @authorId AND 
+                                       ISBN not like @isbn";
+
+            cmd.Parameters.AddWithValue("@title", book.Title);
+            cmd.Parameters.AddWithValue("@publishDate", book.PublishDate);
+            cmd.Parameters.AddWithValue("@authorId", book.AuthorId);
+            cmd.Parameters.AddWithValue("@isbn", isbn);
+
+            _conn.Open();
+
+            int count = (int)cmd.ExecuteScalar();
+
+            _conn.Close();
 
             return count > 0;
         }

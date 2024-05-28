@@ -12,5 +12,7 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Interfaces
         Book? GetFullByISBN(string ISBN);
 
         bool ExistByUnicityCriteria(Book book);
+        bool ExistByISBN(string isbn);
+        bool ExistByUnicityCriteriaAndNotSameISBN(string isbn,Book book);
     }
 }

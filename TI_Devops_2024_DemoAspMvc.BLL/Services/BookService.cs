@@ -55,12 +55,24 @@ namespace TI_Devops_2024_DemoAspMvc.BLL.Services
 
         public bool Update(string isbn, Book b)
         {
-            throw new NotImplementedException();
+            if (!_bookRepository.ExistByISBN(isbn))
+            {
+                throw new KeyNotFoundException($"Book with ISBN : {isbn} doesn't exist");
+            }
+            if(_bookRepository.ExistByUnicityCriteriaAndNotSameISBN(isbn, b))
+            {
+                throw new Exception("Error");
+            }
+            return _bookRepository.Update(isbn, b);
         }
 
         public bool Delete(string isbn)
         {
-            throw new NotImplementedException();
+            if (!_bookRepository.ExistByISBN(isbn))
+            {
+                throw new KeyNotFoundException($"Book with ISBN : {isbn} doesn't exist");
+            }
+            return _bookRepository.Delete(isbn);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Data.SqlClient;
 using TI_Devops_2024_DemoAspMvc.BLL.Interfaces;
 using TI_Devops_2024_DemoAspMvc.BLL.Services;
 using TI_Devops_2024_DemoAspMvc.DAL.Interfaces;
@@ -10,6 +11,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<SqlConnection>(sp =>
+{
+    return new SqlConnection(builder.Configuration.GetConnectionString("default"));
+});
 
 var app = builder.Build();
 

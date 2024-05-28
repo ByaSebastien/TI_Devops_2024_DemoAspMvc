@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TI_Devops_2024_DemoAspMvc.BLL\TI_Devops_2024_DemoAspMvc.BLL.csproj" />
     <ProjectReference Include="..\TI_Devops_2024_DemoAspMvc.Domain\TI_Devops_2024_DemoAspMvc.Domain.csproj" />
   </ItemGroup>
