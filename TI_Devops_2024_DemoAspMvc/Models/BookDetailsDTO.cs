@@ -14,6 +14,6 @@ namespace TI_Devops_2024_DemoAspMvc.Models
         [DisplayName("Date de publication")]
         public string PublishDate { get; set; } = null!;
         [DisplayName("Auteur")]
-        public Author Author { get; set; } = null!;
+        public AuthorDTO Author { get; set; } = null!;
     }
 }

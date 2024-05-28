@@ -14,12 +14,13 @@
     <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Author)</dt>
     <dd class="col-sm-10">
         <dl class="row">
-            <dt class="col-sm-2">Prénom</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.Author.Firstname)</dd>
-            <dt class="col-sm-2">Nom</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.Author.Lastname)</dd>
-            <dt class="col-sm-2">Nom de plume</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.Author.PenName)</dd>
+            <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Author.Fullname)</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.Author.Fullname)</dd>
+            @if(Model.Author.PenName != null)
+            {  
+                <dt class="col-sm-2">Nom de plume</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Author.PenName)</dd>
+            }
         </dl>
     </dd>
 </dl>

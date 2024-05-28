@@ -10,10 +10,12 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
     {
 
         private readonly IBookService _bookService;
+        private readonly IAuthorService _authorService;
 
-        public BookController(IBookService bookService)
+        public BookController(IBookService bookService, IAuthorService authorService)
         {
             _bookService = bookService;
+            _authorService = authorService;
         }
 
         public IActionResult Index()
@@ -27,22 +29,22 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
 
         public IActionResult Add()
         {
-            return View(new BookFormDTO()
-            {
-                ISBN = "1",
-                Title = "Test",
-                Description = "Test",
-                PublishDate = DateTime.Now,
-            });
+            List<AuthorDTO> authors = _authorService.GetAll()
+                                        .Select(a => a.toDTO())
+                                        .ToList();
+            ViewData["authors"] = authors;
+            return View(new BookFormDTO());
         }
 
         [HttpPost]
         public IActionResult Add([FromForm] BookFormDTO form)
         {
-            //TODO REMOVE THIS
-            form.AuthorId = 1;
             if(!ModelState.IsValid)
             {
+                List<AuthorDTO> authors = _authorService.GetAll()
+                                        .Select(a => a.toDTO())
+                                        .ToList();
+                ViewData["authors"] = authors;
                 return View(form);
             }
             _bookService.Create(form.ToEntity());
@@ -60,16 +62,22 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
         {
             ViewData["currentIsbn"] = isbn;
             BookFormDTO book = _bookService.GetByISBN(isbn).toFormDTO();
+            List<AuthorDTO> authors = _authorService.GetAll()
+                                        .Select(a => a.toDTO())
+                                        .ToList();
+            ViewData["authors"] = authors;
             return View(book);
         }
 
         [HttpPost]
         public IActionResult Edit(string currentIsbn, [FromForm] BookFormDTO form)
         {
-            //TODO REMOVE THIS
-            form.AuthorId = 1;
             if(!ModelState.IsValid)
             {
+                List<AuthorDTO> authors = _authorService.GetAll()
+                                        .Select(a => a.toDTO())
+                                        .ToList();
+                ViewData["authors"] = authors;
                 ViewData["currentIsbn"] = currentIsbn;
                 return View(form);
             }

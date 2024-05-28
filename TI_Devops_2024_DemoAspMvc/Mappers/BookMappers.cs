@@ -48,7 +48,7 @@ namespace TI_Devops_2024_DemoAspMvc.Mappers
                 Title = b.Title,
                 Description = b.Description,
                 PublishDate = b.PublishDate.ToShortDateString(),
-                Author = b.Author!
+                Author = b.Author!.toDTO()
             };
         }
     }

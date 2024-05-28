@@ -22,6 +22,7 @@ namespace TI_Devops_2024_DemoAspMvc.Models
         [DataType(DataType.DateTime)]
         public DateTime PublishDate { get; set; }
 
+        [DisplayName("Auteur")]
         public int AuthorId { get; set; }
     }
 }

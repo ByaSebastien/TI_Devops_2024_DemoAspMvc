@@ -25,5 +25,14 @@
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Ajouter</button>
+    <div class="form-group">
+        <label asp-for="AuthorId">Auteur</label>
+        <select asp-for="AuthorId" class="form-select">
+            @foreach(AuthorDTO a in (List<AuthorDTO>)ViewData["authors"]!)
+            {
+                <option value="@a.Id">@(a.PenName ?? a.Fullname)</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Ajouter</button>
 </form>
