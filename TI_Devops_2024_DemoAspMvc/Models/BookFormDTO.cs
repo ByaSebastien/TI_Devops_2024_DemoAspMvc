@@ -14,7 +14,7 @@ namespace TI_Devops_2024_DemoAspMvc.Models
         [Required]
         public string Title { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [DisplayName("Date de publication")]
         [DataType(DataType.DateTime)]

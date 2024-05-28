@@ -42,5 +42,10 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
             _bookService.Create(form.ToEntity());
             return RedirectToAction("Index");
         }
+
+        public IActionResult Details(string isbn)
+        {
+            BookDetailsDTO book = _bookService.GetFullByISBN(isbn);
+        }
     }
 }
