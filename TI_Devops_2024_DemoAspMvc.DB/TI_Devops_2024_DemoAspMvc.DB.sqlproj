@@ -62,6 +62,7 @@
   <ItemGroup>
     <Build Include="Tables\Book.sql" />
     <Build Include="Tables\Author.sql" />
+    <Build Include="Tables\User_.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\PopulateDb.sql" />
