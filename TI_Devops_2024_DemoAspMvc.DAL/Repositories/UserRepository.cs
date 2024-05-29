@@ -18,7 +18,13 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Repositories
 
         protected override User Convert(IDataRecord r)
         {
-            throw new NotImplementedException();
+            return new User()
+            {
+                Id = (int)r["Id"],
+                Username = (string)r["Username"],
+                Email = (string)r["Email"],
+                Password = (string)r["Password"],
+            };
         }
 
         public override int Create(User u)
@@ -83,6 +89,33 @@ namespace TI_Devops_2024_DemoAspMvc.DAL.Repositories
             _conn.Close();
 
             return count > 0;
+        }
+
+        public User? GetUserByUsernameOrEmail(string login)
+        {
+            using SqlCommand cmd = _conn.CreateCommand();
+
+            cmd.CommandText = @$"SELECT * 
+                                 FROM User_ 
+                                 WHERE Username LIKE @login OR Email LIKE @login";
+
+            cmd.Parameters.AddWithValue("@login", login);
+
+            _conn.Open();
+
+            SqlDataReader r = cmd.ExecuteReader();
+            
+
+            User? user = null;
+
+            if (r.Read())
+            {
+                user = Convert(r);
+            }
+
+            _conn.Close();
+
+            return user;
         }
     }
 }

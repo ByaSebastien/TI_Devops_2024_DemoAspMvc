@@ -40,5 +40,22 @@ namespace TI_Devops_2024_DemoAspMvc.BLL.Services
 
             return _userRepository.Create(u);
         }
+
+        public User Login(string login, string password)
+        {
+            User? u = _userRepository.GetUserByUsernameOrEmail(login);
+
+            if(u is null)
+            {
+                throw new KeyNotFoundException("User doesn't exists");
+            }
+
+            if (!BCrypt.Net.BCrypt.Verify(password, u.Password))
+            {
+                throw new Exception("Wrong password");
+            }
+
+            return u;
+        }
     }
 }

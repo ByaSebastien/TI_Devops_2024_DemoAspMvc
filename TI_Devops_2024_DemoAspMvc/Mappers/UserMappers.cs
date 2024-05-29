@@ -14,5 +14,14 @@ namespace TI_Devops_2024_DemoAspMvc.Mappers
                 Password = u.Password,
             };
         }
+
+        public static UserSessionDTO ToSessionDTO(this User u)
+        {
+            return new UserSessionDTO()
+            {
+                Id = u.Id,
+                Username = u.Username,
+            };
+        }
     }
 }

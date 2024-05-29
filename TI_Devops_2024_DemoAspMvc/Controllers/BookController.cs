@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TI_Devops_2024_DemoAspMvc.BLL.Interfaces;
 using TI_Devops_2024_DemoAspMvc.Domain.Entities;
+using TI_Devops_2024_DemoAspMvc.Infrastuctures;
 using TI_Devops_2024_DemoAspMvc.Mappers;
 using TI_Devops_2024_DemoAspMvc.Models;
 
@@ -27,6 +28,7 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
             return View(books);
         }
 
+        [AuthRequired]
         public IActionResult Add()
         {
             List<AuthorDTO> authors = _authorService.GetAll()
@@ -36,6 +38,7 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
             return View(new BookFormDTO());
         }
 
+        [AuthRequired]
         [HttpPost]
         public IActionResult Add([FromForm] BookFormDTO form)
         {
@@ -58,6 +61,7 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
             return View(book);
         }
 
+        [AuthRequired]
         public IActionResult Edit(string isbn)
         {
             ViewData["currentIsbn"] = isbn;
@@ -69,6 +73,7 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
             return View(book);
         }
 
+        [AuthRequired]
         [HttpPost]
         public IActionResult Edit(string currentIsbn, [FromForm] BookFormDTO form)
         {
@@ -85,6 +90,7 @@ namespace TI_Devops_2024_DemoAspMvc.Controllers
             return RedirectToAction("Index");
         }
 
+        [AuthRequired]
         public IActionResult Delete(string isbn)
         {
             _bookService.Delete(isbn);
